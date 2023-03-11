@@ -1,13 +1,13 @@
 -- Heres the open source if yall aren't in the TELEGRAM
 
 local player = game.Players.LocalPlayer
-local groupId = 15212924
+local groupId = 10729994
 
 local isMember = player:IsInGroup(groupId)
 
 local kickMessages = {
-    "Boshkalay bong bong!",
-    "Where's My Soda?",
+    "join the group!",
+    "join the group ?",
     "Every Opp Shot!",
     "Fuck a beat, I was Tryna beat a case ~ Tay-K",
     "Maybe Join the Group?",
@@ -16,7 +16,7 @@ local kickMessages = {
 
 if isMember then
     if game:GetService("Players").LocalPlayer.PlayerGui.UI.ServerInfo.Text == "PRACTICE SERVER - Gun Game | NA" or game:GetService("Players").LocalPlayer.PlayerGui.UI.ServerInfo.Text == "PRACTICE SERVER - Gun Game | EU" then
-game:GetService("Players").LocalPlayer.PlayerGui.UI.ServerInfo.Text = "[REVIVED] YURI X v5.0"
+game:GetService("Players").LocalPlayer.PlayerGui.UI.ServerInfo.Text = " Ea.solotions v2.0"
 
 local notifications = loadstring(game:HttpGet(("https://pasteheaven.com/18ef622e-839c-40a4-8507-25c711ed0fe4/raw"),true))()
 
