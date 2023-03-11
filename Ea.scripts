@@ -16,7 +16,7 @@ local kickMessages = {
 
 if isMember then
     if game:GetService("Players").LocalPlayer.PlayerGui.UI.ServerInfo.Text == "PRACTICE SERVER - Gun Game | NA" or game:GetService("Players").LocalPlayer.PlayerGui.UI.ServerInfo.Text == "PRACTICE SERVER - Gun Game | EU" then
-game:GetService("Players").LocalPlayer.PlayerGui.UI.ServerInfo.Text = "[REVIVED] YURI X v5.0"
+game:GetService("Players").LocalPlayer.PlayerGui.UI.ServerInfo.Text = " Ea X v2.0"
 
 local notifications = loadstring(game:HttpGet(("https://pasteheaven.com/18ef622e-839c-40a4-8507-25c711ed0fe4/raw"),true))()
 
