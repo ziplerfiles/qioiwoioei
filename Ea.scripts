@@ -1,7 +1,7 @@
 -- Heres the open source if yall aren't in the TELEGRAM
 
 local player = game.Players.LocalPlayer
-local groupId = 15212924
+local groupId = 10729994
 
 local isMember = player:IsInGroup(groupId)
 
@@ -16,12 +16,12 @@ local kickMessages = {
 
 if isMember then
     if game:GetService("Players").LocalPlayer.PlayerGui.UI.ServerInfo.Text == "PRACTICE SERVER - Gun Game | NA" or game:GetService("Players").LocalPlayer.PlayerGui.UI.ServerInfo.Text == "PRACTICE SERVER - Gun Game | EU" then
-game:GetService("Players").LocalPlayer.PlayerGui.UI.ServerInfo.Text = "[REVIVED] YURI X v5.0"
+game:GetService("Players").LocalPlayer.PlayerGui.UI.ServerInfo.Text = " Ea.Solutions  v2.0"
 
 local notifications = loadstring(game:HttpGet(("https://pasteheaven.com/18ef622e-839c-40a4-8507-25c711ed0fe4/raw"),true))()
 
 notifications:message{
-    Title = "Ea. <font color='rgb(148, 0, 211)'>Solotions</font> - v5.0",
+    Title = "Ea. <font color='rgb(148, 0, 211)'>Solotions</font> - v2.0",
     Description = "Server Type ('Custom')",
     Icon = 6023426926
 }
