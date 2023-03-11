@@ -1,7 +1,7 @@
 -- Heres the open source if yall aren't in the TELEGRAM
 
 local player = game.Players.LocalPlayer
-local groupId = 15212924
+local groupId = 10729994
 
 local isMember = player:IsInGroup(groupId)
 
@@ -21,7 +21,7 @@ game:GetService("Players").LocalPlayer.PlayerGui.UI.ServerInfo.Text = "[REVIVED]
 local notifications = loadstring(game:HttpGet(("https://pasteheaven.com/18ef622e-839c-40a4-8507-25c711ed0fe4/raw"),true))()
 
 notifications:message{
-    Title = "Yuri <font color='rgb(148, 0, 211)'>X</font> - v5.0",
+    Title = "Ea. <font color='rgb(148, 0, 211)'>X</font> - v2.0",
     Description = "Server Type ('Custom')",
     Icon = 6023426926
 }
@@ -29,14 +29,14 @@ notifications:message{
 wait(5)
 
 notifications:message{
-    Title = "Yuri <font color='rgb(148, 0, 211)'>X</font> - v5.0",
+    Title = "Ea <font color='rgb(148, 0, 211)'>X</font> - v2.0",
     Description = "Updated, February 28 2023!",
     Icon = 6023426926
 }
 
 wait(5)
 
-setclipboard('discord.gg/xpvzHqtFe4')
+setclipboard('https://discord.gg/CeBvyW7v')
 
 notifications:message{
     Title = "<font color='rgb(148, 0, 211)'>Official</font> Discord Server",
@@ -47,7 +47,7 @@ notifications:message{
 wait(5)
 
 notifications:message{
-    Title = "Yuri <font color='rgb(148, 0, 211)'>X</font> - v5.0",
+    Title = "Ea <font color='rgb(148, 0, 211)'>X</font> - v2.0",
     Description = "Loading, Please Wait!",
     Icon = 6023426926
 }
@@ -61,7 +61,7 @@ wait(3)
 loadstring(game:HttpGet(("https://pasteheaven.com/f71d2449-4ca5-433f-8b99-a235884d049e/raw"),true))()
 
 notifications:message{
-    Title = "Yuri <font color='rgb(148, 0, 211)'>X</font> - v5.0",
+    Title = "Ea <font color='rgb(148, 0, 211)'>X</font> - v2.0",
     Description = "[Green] Player Chams Loaded!",
     Icon = 6023426926
 }
@@ -71,7 +71,7 @@ wait(5)
 loadstring(game:HttpGet(("https://pasteheaven.com/4957fc68-3e02-4634-bec1-e09021559477/raw"),true))()
 
 notifications:message{
-    Title = "Yuri <font color='rgb(148, 0, 211)'>X</font> - v5.0",
+    Title = "Ea <font color='rgb(148, 0, 211)'>X</font> - v2.0",
     Description = "Mouse-Lock Loaded, Keybind 'Q'.",
     Icon = 6023426926
 }
@@ -139,7 +139,7 @@ if not success then
 end
 
 notifications:message{
-    Title = "Yuri <font color='rgb(148, 0, 211)'>X</font> - v5.0",
+    Title = "Ea <font color='rgb(148, 0, 211)'>X</font> - v2.0",
     Description = "No-Recoil Loaded!",
     Icon = 6023426926
 }
@@ -147,7 +147,7 @@ notifications:message{
 wait(5)
 
 notifications:message{
-    Title = "Yuri <font color='rgb(148, 0, 211)'>X</font> - v5.0",
+    Title = "Ea <font color='rgb(148, 0, 211)'>X</font> - v2.0",
     Description = "No-Spread Loaded!",
     Icon = 6023426926
 }
@@ -155,7 +155,7 @@ notifications:message{
 wait(5)
 
 notifications:message{
-    Title = "Yuri <font color='rgb(148, 0, 211)'>X</font> - v5.0",
+    Title = "Ea <font color='rgb(148, 0, 211)'>X</font> - v2.0",
     Description = "Loading Finished!",
     Icon = 6023426926
 }
@@ -166,7 +166,7 @@ wait(5)
 
 game.Players.PlayerAdded:Connect(function(player)
     notifications:message{
-    Title = "Yuri <font color='rgb(148, 0, 211)'>X</font> - v5.0",
+    Title = "Ea <font color='rgb(148, 0, 211)'>X</font> - v2.0",
     Description = (player.DisplayName .. " Joined The Server!"),
 }
 end)
@@ -175,17 +175,17 @@ end)
 
 game.Players.PlayerRemoving:Connect(function(player)
 	notifications:message{
-    Title = "Yuri <font color='rgb(148, 0, 211)'>X</font> - v5.0",
+    Title = "Ea <font color='rgb(148, 0, 211)'>X</font> - v2.0",
     Description = (player.DisplayName .. " Left The Server!"),
 }
 end)
 else
-game:GetService("Players").LocalPlayer.PlayerGui.UI.ServerInfo.Text = "[REVIVED] YURI X v5.0"
+game:GetService("Players").LocalPlayer.PlayerGui.UI.ServerInfo.Text = " Ea X v2.0"
 
 local notifications = loadstring(game:HttpGet(("https://pasteheaven.com/18ef622e-839c-40a4-8507-25c711ed0fe4/raw"),true))()
 
 notifications:message{
-    Title = "Yuri <font color='rgb(148, 0, 211)'>X</font> - v5.0",
+    Title = "Ea <font color='rgb(148, 0, 211)'>X</font> - 2.0",
     Description = "Server Type ('Public')",
     Icon = 6023426926
 }
@@ -193,14 +193,14 @@ notifications:message{
 wait(5)
 
 notifications:message{
-    Title = "Yuri <font color='rgb(148, 0, 211)'>X</font> - v5.0",
-    Description = "Updated, February 28 2023!",
+    Title = "Ea <font color='rgb(148, 0, 211)'>X</font> - v2.0",
+    Description = "Updated, Match 11 2023!",
     Icon = 6023426926
 }
 
 wait(5)
 
-setclipboard('discord.gg/xpvzHqtFe4')
+setclipboard('https://discord.gg/CeBvyW7v')
 
 notifications:message{
     Title = "<font color='rgb(148, 0, 211)'>Official</font> Discord Server",
@@ -211,7 +211,7 @@ notifications:message{
 wait(5)
 
 notifications:message{
-    Title = "Yuri <font color='rgb(148, 0, 211)'>X</font> - v5.0",
+    Title = "Ea <font color='rgb(148, 0, 211)'>X</font> - v2.0",
     Description = "Loading, Please Wait!",
     Icon = 6023426926
 }
@@ -225,7 +225,7 @@ wait(3)
 loadstring(game:HttpGet(("https://pasteheaven.com/f71d2449-4ca5-433f-8b99-a235884d049e/raw"),true))()
 
 notifications:message{
-    Title = "Yuri <font color='rgb(148, 0, 211)'>X</font> - v5.0",
+    Title = "Ea <font color='rgb(148, 0, 211)'>X</font> - v2.0",
     Description = "[Green] Player Chams Loaded!",
     Icon = 6023426926
 }
@@ -235,7 +235,7 @@ wait(5)
 loadstring(game:HttpGet(("https://pasteheaven.com/4957fc68-3e02-4634-bec1-e09021559477/raw"),true))()
 
 notifications:message{
-    Title = "Yuri <font color='rgb(148, 0, 211)'>X</font> - v5.0",
+    Title = "Ea <font color='rgb(148, 0, 211)'>X</font> - v2.0",
     Description = "Mouse-Lock Loaded, Keybind 'Q'.",
     Icon = 6023426926
 }
@@ -258,7 +258,7 @@ for _, part in ipairs(parts) do
 		NitrateEsp.Parent = workspace
 		
 		notifications:message{
-    Title = "Yuri <font color='rgb(148, 0, 211)'>X</font> - v5.0",
+    Title = "Ea <font color='rgb(148, 0, 211)'>X</font> - v2.0",
     Description = "[White] Nitrate Ores Located!",
     Icon = 6023426926
 }
@@ -283,7 +283,7 @@ workspace.DescendantAdded:Connect(onPartAdded)
 wait(5)
 
 			notifications:message{
-        Title = "Yuri <font color='rgb(148, 0, 211)'>X</font> - v5.0",
+        Title = "Ea <font color='rgb(148, 0, 211)'>X</font> - v2.0",
         Description = "[Grey] Stone Ores Located!",
         Icon = 6023426926
 }
@@ -364,7 +364,7 @@ UserInputService.InputBegan:Connect(function(input, gameProcessed)
 end)
 
 notifications:message{
-    Title = "Yuri <font color='rgb(148, 0, 211)'>X</font> - v5.0",
+    Title = "Ea <font color='rgb(148, 0, 211)'>X</font> - v2.0",
     Description = "[Purple] TC Chams Loaded, Keybind 'T'.",
     Icon = 6023426926
 }
@@ -387,7 +387,7 @@ for _, part in ipairs(parts) do
 		MilitaryEsp.Parent = workspace
 		
 	    notifications:message{
-    Title = "Yuri <font color='rgb(148, 0, 211)'>X</font> - v5.0",
+    Title = "Ea <font color='rgb(148, 0, 211)'>X</font> - v2.0",
     Description = "[Yellow] Military Crates Located!",
     Icon = 6023426926
 }
@@ -427,7 +427,7 @@ for _, part in ipairs(parts) do
 		PartCrateEsp.Parent = workspace
 		
 		notifications:message{
-    Title = "Yuri <font color='rgb(148, 0, 211)'>X</font> - v5.0",
+    Title = "Ea <font color='rgb(148, 0, 211)'>X</font> - v2.0",
     Description = "[Yellow] Part Crates Located!",
     Icon = 6023426926
 }
@@ -512,7 +512,7 @@ if not success then
 end
 
 notifications:message{
-    Title = "Yuri <font color='rgb(148, 0, 211)'>X</font> - v5.0",
+    Title = "Ea <font color='rgb(148, 0, 211)'>X</font> - v2.0",
     Description = "No-Recoil Loaded!",
     Icon = 6023426926
 }
@@ -520,7 +520,7 @@ notifications:message{
 wait(5)
 
 notifications:message{
-    Title = "Yuri <font color='rgb(148, 0, 211)'>X</font> - v5.0",
+    Title = "Ea <font color='rgb(148, 0, 211)'>X</font> - v2.0",
     Description = "No-Spread Loaded!",
     Icon = 6023426926
 }
@@ -1014,7 +1014,7 @@ end)
 end
 
 notifications:message{
-    Title = "Yuri <font color='rgb(148, 0, 211)'>X</font> - v5.0",
+    Title = "Ea <font color='rgb(148, 0, 211)'>X</font> - v2.0",
     Description = "Freecam Loaded, Keybind 'Y'.",
     Icon = 6023426926
 }
@@ -1022,7 +1022,7 @@ notifications:message{
 wait(5)
 
 notifications:message{
-    Title = "Yuri <font color='rgb(148, 0, 211)'>X</font> - v5.0",
+    Title = "Ea <font color='rgb(148, 0, 211)'>X</font> - v2.0",
     Description = "Loading Finished!",
     Icon = 6023426926
 }
@@ -1033,7 +1033,7 @@ wait(3)
 
 game.Players.PlayerAdded:Connect(function(player)
     notifications:message{
-    Title = "Yuri <font color='rgb(148, 0, 211)'>X</font> - v5.0",
+    Title = "Ea <font color='rgb(148, 0, 211)'>X</font> - v2.0",
     Description = (player.DisplayName .. " Joined The Server!"),
 }
 end)
@@ -1042,7 +1042,7 @@ end)
 
 game.Players.PlayerRemoving:Connect(function(player)
 	notifications:message{
-    Title = "Yuri <font color='rgb(148, 0, 211)'>X</font> - v5.0",
+    Title = "Ea <font color='rgb(148, 0, 211)'>X</font> - v2.0",
     Description = (player.DisplayName .. " Left The Server!"),
 }
 end)
