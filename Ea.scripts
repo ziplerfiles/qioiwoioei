@@ -1,7 +1,7 @@
 -- Heres the open source if yall aren't in the TELEGRAM
 
 local player = game.Players.LocalPlayer
-local groupId = 10729994
+local groupId = 3333239
 
 local isMember = player:IsInGroup(groupId)
 
