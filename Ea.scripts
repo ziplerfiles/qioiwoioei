@@ -1,6 +1,10 @@
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/2Riddle2/AlteryoBases/main/AlteryoLinoria"))()
-		local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/Mainstreamed/Linoria-Rewrite/main/Save%20Manager.lua"))()
-		local ThemeManager = loadstring(game:HttpGet('https://raw.githubusercontent.com/2Riddle2/AlteryoBases/main/AlteryoTheme'))()
+		local Library = loadstring(game:HttpGet('https://raw.githubusercontent.com/ZXCSt1vaha/Main/main/LinoriaRewriteUILib'))()
+		local SaveManager = loadstring(game:HttpGet('https://raw.githubusercontent.com/DemoExists/LinoriaLib/main/addons/SaveManager.lua'))()
+		local ThemeManager = loadstring(game:HttpGet('https://raw.githubusercontent.com/ZXCSt1vaha/Main/main/LinoriaRewriteUILibThems'))()
+
+		getgenv()._UpPicker = {
+			Distance = 3
+		}
 
 		getgenv()._Aimbot = {
 			Enabled = false,
@@ -9,9 +13,9 @@ local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/2Ridd
 			Y_Offset = 0
 		}
 
-		getgenv()._SilentAim = {
-			Enabled = false,
-			Silent_Target = nil,
+		getgenv()._Cameras = {
+			aaaa = false,
+			Abobus = nil,
 			X_Offset = 0,
 			Y_Offset = 0
 		}
@@ -35,70 +39,35 @@ local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/2Ridd
 			OreMaxDis = 300
 		}
 
-		local anticam
-		anticam = hookmetamethod(game, "__index", newcclosure(function(...)
-			local self, k = ...
-			if not checkcaller() and k == "CFrame" and self.Name == "Camera" and self == Camera then
-				return _Camera.GetCFrame()
-			end
-
-			return anticam(...)
-		end))
-
-		local antihitbox
-		antihitbox = hookmetamethod(game, "__index", newcclosure(function(...)
-			local self, k = ...
-
-			if not checkcaller() and k == "Size" and self.Name == "Head" then
-				return Vector3.new(1.9362000226974487, 0.9681000113487244, 0.9681000113487244)
-			end
-
-			return antihitbox(...)
-		end))
-
-
-		-- Game Globals
 		local _Network = getrenv()._G.modules.Network;
 		local _Player = getrenv()._G.modules.Player;
 		local _Character = getrenv()._G.modules.Character;
 		local _Camera = getrenv()._G.modules.Camera;
-
-		-- Locals
 		local Players = game:GetService("Players");
 		local LocalPlayer = Players.LocalPlayer;
 		local Camera = game:GetService("Workspace").Camera;
 		local Mouse = LocalPlayer:GetMouse();
 
-
-		local Light = game:GetService("Lighting")
-		-- // Functions \\ --
-		-- Sleeping Check
 		local function IsSleeping(head)
 			return (head.Rotation == Vector3.new(0, 0, -75) or head.Rotation == Vector3.new(0, 0, 45)) -- Jank
 		end
-
-		-- Check if Visible
 		function isPartVisible(part)
 			local ignore = workspace.Ignore:GetDescendants();
-			local castPoints = {part.Position}
+			local castPoints = { part.Position }
 			return Camera:GetPartsObscuringTarget(castPoints, ignore)
 		end
 
-		-- Get Closest to mouse
 		function getClosestPlayerToCursor()
 			local closestPlayer = nil;
 			local shortestDistance = ASSettings["AimDis"];
-
 			for i, v in pairs(workspace:GetChildren()) do
-				if v:IsA("Model") and v:FindFirstChild("Humanoid") and v.Name ~= "Player" then
-					if v.Humanoid.Health ~= 0 and v.PrimaryPart ~= nil and v:FindFirstChild("Head") then
+				if v:IsA("Model") and v:FindFirstChild("HumanoidRootPart") and v.Name ~= "Player" then
+					if v.PrimaryPart ~= nil and v:FindFirstChild("Head") then
 						if (not isPartVisible(v.PrimaryPart) and not ASSettings["VisibleCheck"]) or (IsSleeping(v.Head) and not ASSettings["AimSleepers"]) then
 							return nil;
 						end
-
 						local pos = Camera.WorldToViewportPoint(Camera, v.PrimaryPart.Position)
 						local magnitude = (Vector2.new(pos.X, pos.Y) - Vector2.new(Mouse.X, Mouse.Y)).magnitude
-
 						if magnitude < shortestDistance then
 							closestPlayer = v
 							shortestDistance = magnitude
@@ -106,22 +75,18 @@ local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/2Ridd
 					end
 				end
 			end
-
 			return closestPlayer
 		end
 
-		-- Get Closest to LocalPlayer
 		function getClosestPlayerToPlayer()
 			local closestPlayer = nil;
 			local shortestDistance = ASSettings["AimDis"];
-
 			for i, v in pairs(workspace:GetChildren()) do
-				if v:IsA("Model") and v:FindFirstChild("Humanoid") and v.Name ~= "Player" then
-					if v.Humanoid.Health ~= 0 and v.PrimaryPart ~= nil and v:FindFirstChild("Head") then
+				if v:IsA("Model") and v:FindFirstChild("HumanoidRootPart") and v.Name ~= "Player" then
+					if v.PrimaryPart ~= nil and v:FindFirstChild("Head") then
 						if (not isPartVisible(v.PrimaryPart) and not ASSettings["VisibleCheck"]) or (IsSleeping(v.Head) and not ASSettings["AimSleepers"]) then
 							return nil;
 						end
-
 						local magnitude = (_Character.character.Middle.Position - v.PrimaryPart.Position).magnitude
 						if magnitude < shortestDistance then
 							closestPlayer = v
@@ -130,80 +95,48 @@ local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/2Ridd
 					end
 				end
 			end
-
 			return closestPlayer
 		end
 
-		function dofullbright()
-			Light.Ambient = Color3.new(1, 1, 1)
-			Light.ColorShift_Bottom = Color3.new(1, 1, 1)
-			Light.ColorShift_Top = Color3.new(1, 1, 1)
-		end
+		Library:SetWatermark('Suck my Cooks Leery#4068 | Skiddedhub')
+		Library:Notify("NeverDieds.<font color=\"#E50101\">exe</font> Loaded!")
 
 
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/FreeCam.lua", true))()
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/SimpleESP.lua", true))()
-
-		Library:SetWatermark('Alteryo Evil Scripts')
-		setscriptable(workspace.Terrain, "Decoration", true)
 		local Window = Library:CreateWindow({
-			Title = 'Alteryo.velocity  (Tested Scripts 😈)',
+			Size = UDim2.fromOffset(650, 510),
+			Title =
+				"<font color=\"#FF6C90\">AlwaysLives.</font><font color=\"#E50101\">sys</font> | <font color=\"#A599FD\">PRIVATE</font> | <font color=\"#E50101\">Trident Survival</font>",
 			Center = true,
 			AutoShow = true,
 		})
 
-		local Tabs = {
-			AimBots = Window:AddTab('AimBots'), 
-			Misc = Window:AddTab("Misc"),
-			Visual = Window:AddTab("Visual"),
-			Settings = Window:AddTab('Settings'),
-		}
+		local CombatTab = Window:AddTab('>Combat')
 
-		local aimtabs = Tabs.AimBots:AddTabbox({Side = 1})
-		local aimsettabs = Tabs.AimBots:AddTabbox({Side = 2})
-		local worldset = Tabs.Misc:AddLeftGroupbox("World Settings")
-		local esp = Tabs.Visual:AddLeftGroupbox("ESP")
+		local SilentAimSector = CombatTab:AddLeftGroupbox('Silent Aim')
 
-		local SilentAimTab = aimtabs:AddTab("SilentAim")
-		local AimTab = aimtabs:AddTab("AimTab")
-
-		local AimsetTab = aimsettabs:AddTab("AimBot 🛠")
-
-		SilentAimTab:AddToggle('SilentAim_Enabled', {
-			Text = 'Enable SilentAim',
-			Default = false,
-			Tooltip = 'Turns on/off silent aim.',
-		})
-
+		SilentAimSector:AddToggle('SilentAim_Enabled', { Text = 'Enable SilentAim', Default = false, Tooltip = nil, })
 		Toggles.SilentAim_Enabled:OnChanged(function()
 			if Toggles.SilentAim_Enabled.Value then
 				_Aimbot["Enabled"] = false;
-				Toggles.Aim_Enabled.Value = false;
 			end
 
-			_SilentAim["Enabled"] = Toggles.SilentAim_Enabled.Value;
+			_Cameras["aaaa"] = Toggles.SilentAim_Enabled.Value;
 		end)
-		SilentAimTab:AddLabel('SilentAim Keybind'):AddKeyPicker('SilentAimbot_Bind', {
-			Default = 'MB2',
-			Text = 'SilentAim Keybind',
-			Tooltip = 'Keybind to silent aimbot.',
-			NoUI = false,
-			Mode = 'Hold',
-		})
-		-- Replace Camera function
+		SilentAimSector:AddLabel('SilentAim Keybind'):AddKeyPicker('SilentAimbot_Bind',
+		{ Default = 'MB2', Text = 'SilentAim Keybind', Tooltip = nil, NoUI = false, Mode = 'Hold', })
 		local OrginalGetCFrame = _Camera.GetCFrame;
 		_Camera.GetCFrame = function()
-			if _SilentAim["Enabled"] and _SilentAim["Silent_Target"] then
-				return CFrame.new(OrginalGetCFrame().p, _SilentAim["Silent_Target"].Position + Vector3.new((_SilentAim["X_Offset"]), (_SilentAim["Y_Offset"]), 0.001));
+			if _Cameras["aaaa"] and _Cameras["Abobus"] then
+				return CFrame.new(OrginalGetCFrame().p,
+					_Cameras["Abobus"].Position + Vector3.new((_Cameras["X_Offset"]), (_Cameras["Y_Offset"]), 0.001));
 			else
 				return OrginalGetCFrame();
 			end
 		end
-
 		wait(0.1)
 		task.spawn(function()
 			while task.wait() do
-				if Options.SilentAimbot_Bind:GetState() and _SilentAim["Enabled"] then
+				if Options.SilentAimbot_Bind:GetState() and _Cameras["aaaa"] then
 					local Target;
 					if ASSettings["AimType"] == "To Cursor" then
 						Target = getClosestPlayerToCursor();
@@ -217,264 +150,502 @@ local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/2Ridd
 							local oldy = Head.Position.Y;
 							wait(0.01)
 							if ASSettings["Prediction"] == true then
-								_SilentAim["X_Offset"] = (Head.Position.X - oldx)*2;
-								_SilentAim["Y_Offset"] = (Head.Position.Y - oldy);
+								_Cameras["X_Offset"] = (Head.Position.X - oldx) * 1.7;
+								_Cameras["Y_Offset"] = (Head.Position.Y - oldy);
 							else
-								_SilentAim["X_Offset"] = 0
-								_SilentAim["Y_Offset"] = 0
+								_Cameras["X_Offset"] = 0
+								_Cameras["Y_Offset"] = 0
 							end
-							_SilentAim["Silent_Target"] = Head;
+							_Cameras["Abobus"] = Head;
 						end
 					end
 				else
-					_SilentAim["Silent_Target"] = nil;
+					_Cameras["Abobus"] = nil;
 				end
-
 				if Library.Unloaded then break end
 			end
 		end)
-
-		-- // Aimbot \\ --
-
-		-- Aimbot Toggle
-		AimTab:AddToggle('Aim_Enabled', {
-			Text = 'Enable Aimbot',
-			Default = false,
-			Tooltip = 'Turns on/off the aimbot.',
-		})
-
-		Toggles.Aim_Enabled:OnChanged(function()
-			if Toggles.Aim_Enabled.Value then
-				_SilentAim["Enabled"] = false;
-				Toggles.SilentAim_Enabled.Value = false;
-			end
-
-			_Aimbot["Enabled"] = Toggles.Aim_Enabled.Value;
-		end)
-
-		-- Aimbot Keybind
-		AimTab:AddLabel('Aimbot Keybind'):AddKeyPicker('Aimbot_Bind', {
-			Default = 'MB2',
-			Text = 'Aimbot Keybind',
-			Tooltip = 'Keybind to aimbot.',
-			NoUI = false,
-			Mode = 'Hold',
-		})
-
-		wait(0.1)
-		task.spawn(function()
-			while task.wait() do
-				if Options.Aimbot_Bind:GetState() and _Aimbot["Enabled"] then
-					local Target;
-					if ASSettings["AimType"] == "To Cursor" then
-						Target = getClosestPlayerToCursor();
-					else
-						Target = getClosestPlayerToPlayer();
-					end
-					if Target then
-						local Head = Target:FindFirstChild("Head");
-						if Head then
-							local pos, _ = Camera:WorldToScreenPoint(Head.Position)
-							local oldx = Head.Position.X;
-							local oldy = Head.Position.Y;
-							wait(0.01)
-							if ASSettings["Prediction"] == true then
-								_Aimbot["X_Offset"] = (Head.Position.X - oldx)*2;
-								_Aimbot["Y_Offset"] = (Head.Position.Y - oldy);
-							else
-								_Aimbot["X_Offset"] = 0
-								_Aimbot["Y_Offset"] = 0
-							end
-							mousemoverel((pos.X - (Mouse.X + _Aimbot["X_Offset"]))/_Aimbot["AimSmooth"], (pos.Y - (Mouse.Y + _Aimbot["Y_Offset"]))/_Aimbot["AimSmooth"])
-						end
-					end
-				end
-
-				if Library.Unloaded then break end
-			end
-		end)
-
-		AimsetTab:AddDropdown('AimTypeDrop', {
-			Values = {"To Cursor", "To Player"},
-			Default = 1,
-			Multi = false,
-
-			Text = 'Target Closest',
-			Tooltip = 'Changes how the aimbot/silent aim selects a target.',
-		})
-
+		SilentAimSector:AddDropdown('AimTypeDrop',
+			{ Values = { "To Cursor", "To Player" }, Default = 1, Multi = false, Text = 'Target Closest', Tooltip = nil, })
 		Options.AimTypeDrop:OnChanged(function()
-			AimsetTab["AimType"] = Options.AimTypeDrop.Value;
+			SilentAimSector["AimType"] = Options.AimTypeDrop.Value;
 		end)
-
-		-- Aim Distance
-		AimsetTab:AddSlider('Aim_Distance', {
-			Text = 'Max Distance',
-			Default = 200,
-			Min = 0,
-			Max = 1000,
-			Rounding = 0,
-			Compact = false,
-		})
-
+		SilentAimSector:AddSlider('Aim_Distance',
+			{ Text = 'Max Distance', Default = 200, Min = 0, Max = 1000, Rounding = 0, Compact = false, })
 		Options.Aim_Distance:OnChanged(function()
 			ASSettings["AimDis"] = Options.Aim_Distance.Value;
 		end)
-
-		-- Visible Check
-		AimsetTab:AddToggle('Aim_Visible', {
-			Text = 'Visible Check',
-			Default = false,
-			Tooltip = 'Toggles aiming only if player is visible.',
-		})
-
+		SilentAimSector:AddToggle('Aim_Visible', { Text = 'Visible Check', Default = false, Tooltip = nil, })
 		Toggles.Aim_Visible:OnChanged(function()
 			ASSettings["VisibleCheck"] = Toggles.Aim_Visible.Value;
 		end)
-
-		-- Sleeping Aim
-		AimsetTab:AddToggle('Aim_Sleepers', {
-			Text = 'Aim at Sleepers',
-			Default = false,
-			Tooltip = 'Toggles aiming at sleeping players.',
-		})
-
+		SilentAimSector:AddToggle('Aim_Sleepers', { Text = 'Aim at Sleepers', Default = false, Tooltip = nil, })
 		Toggles.Aim_Sleepers:OnChanged(function()
 			ASSettings["AimSleepers"] = Toggles.Aim_Sleepers.Value;
 		end)
-
-		AimsetTab:AddToggle('Predictions', {
-			Text = 'Prediction',
-			Default = false,
-			Tooltip = 'Toggles predictions.',
-		})
-
+		SilentAimSector:AddToggle('Predictions', { Text = 'Prediction', Default = false, Tooltip = nil, })
 		Toggles.Predictions:OnChanged(function()
 			ASSettings["Prediction"] = Toggles.Predictions.Value;
 		end)
 
+		local HitBoxSector = CombatTab:AddLeftGroupbox('HitBox')
 
-		local uisett = Tabs.Settings:AddLeftGroupbox('Ui Settings')
-		local uitheme = Tabs.Settings:AddRightGroupbox('Ui Theme')
-		local UnloadButton = uisett:AddButton('Unload', function()
-			Library:Unload()
-		end)
-		uisett:AddToggle('KBTT', {
-			Text = 'Alteryo Key Binds',
-			Default = false,
-			Tooltip = 'Off/On Keybind',
-		})
-		Toggles.KBTT:OnChanged(function(KBTTTT)
-			Library.KeybindFrame.Visible = KBTTTT
-		end)
-		uisett:AddToggle('WMT', {
-			Text = 'Watermark',
-			Default = false,
-			Tooltip = 'Off/On Watermark',
-		})
-		Toggles.WMT:OnChanged(function(WT)
-			Library:SetWatermarkVisibility(WT)
-		end)
+		local HitBX = 4
+		local HitBY = 5
+		local HitBZ = 2.5
 
-		uisett:AddInput('WaterMarkText', {
-			Default = 'Alteryo Evil Scripts',
-			Numeric = false,
-			Finished = false,
-
-			Text = 'Alteryo Evil Scripts',
-			Tooltip = 'Set Water Mark',
-
-			Placeholder = ' ',
-		})
-
-
-		Options.WaterMarkText:OnChanged(function()
-			Library:SetWatermark(Options.WaterMarkText.Value)
-		end)
-
-		uisett:AddLabel('Menu bind'):AddKeyPicker('Menubind', {
-
-			Default = 'End',
-			SyncToggleState = false, 
-
-			Mode = 'Toggle',
-
-			Text = 'Menu bind',
-			NoUI = true,
-		})
-
-		Library.ToggleKeybind = Options.Menubind
-
-		worldset:AddToggle('TGT', {
-			Text = 'Grass changer',
-			Default = false,
-			Tooltip = 'Off/On grass',
-		})
-		Toggles.TGT:OnChanged(function(f)
-			workspace.Terrain.Decoration = f
-		end)
-		worldset:AddToggle('FBT', {
-			Text = 'Full Bright',
-			Default = false,
-			Tooltip = 'Off/On Full Bright',
-		})
-		Toggles.FBT:OnChanged(function(f)
-			if f == true then
-				dofullbright()
-			else
-				Light.Ambient = Color3.new(0.364706, 0.364706, 0.364706)
-				Light.ColorShift_Bottom = Color3.new(0, 0, 0)
-				Light.ColorShift_Top = Color3.new(0, 0, 0)
-			end
-		end)
-		worldset:AddToggle('BHB', {
-			Text = 'Big Heads',
-			Default = false,
-			Tooltip = 'Off/On Esp',
-		})
-		Toggles.BHB:OnChanged(function(f)
-			if f == true then
-				for v,i in pairs(workspace:GetChildren()) do
-					if i:FindFirstChild("Humanoid") then
-						local FakeHead = Instance.new("Part",i)
-						FakeHead.CFrame = i.Head.CFrame * CFrame.new(0,-1.5,0)
-						FakeHead.Name = "Head"
-						FakeHead.Size = Vector3.new(4,5,2.5)
-						FakeHead.Anchored = true
-						FakeHead.CanCollide = false
-						FakeHead.Transparency = 0.9
+		HitBoxSector:AddToggle('EnabledHB', { Text = 'Enabled', Default = false, Tooltip = nil, })
+		Toggles.EnabledHB:OnChanged(function(EnabledHBB)
+			if EnabledHBB == true then
+				for v, i in pairs(workspace:GetChildren()) do
+					if i:FindFirstChild("HumanoidRootPart") then
+						i.Head.Size = Vector3.new(HitBX, HitBY, HitBZ)
 					end
 				end
-				local FakeHead = Instance.new("Part",game.ReplicatedStorage.Player)
-				FakeHead.CFrame = game.ReplicatedStorage.Player.Head.CFrame * CFrame.new(0,-1.5,0)
-				FakeHead.Name = "Head"
-				FakeHead.Size = Vector3.new(4,5,2.5)
-				FakeHead.Anchored = true
-				FakeHead.CanCollide = false
-				FakeHead.Transparency = 0.9
-			else
-				for v,i in pairs(workspace:GetChildren()) do
-					if i:FindFirstChild("Humanoid") then
-						for v,i in pairs(i:GetChildren()) do
-							if i.Name == "Head" and i.Size == Vector3.new(4,5,2.5) then
-								i:Remove()
-							end
-						end
+				game.ReplicatedStorage.Player.Head.Size = Vector3.new(HitBX, HitBY, HitBZ)
+			elseif EnabledHBB == false then
+				for v, i in pairs(workspace:GetChildren()) do
+					if i:FindFirstChild("HumanoidRootPart") then
+						i.Head.Size = Vector3.new(1.9362, 0.9681, 0.9681)
 					end
 				end
-
-				for v,i in pairs(game.ReplicatedStorage.Player:GetChildren()) do
-					if i.Name == "Head" and i.Size == Vector3.new(4,5,2.5) then
-						i:Remove()
-					end
-				end
+				game.ReplicatedStorage.Player.Head.Size = Vector3.new(1.9362, 0.9681, 0.9681)
 			end
 		end)
 
-		worldset:AddLabel('Noclip'):AddKeyPicker('Noclip_Toggle', {
+
+
+		local GunModsSector = CombatTab:AddRightGroupbox('Gun Mods')
+
+		local BowDerect = require(game.ReplicatedStorage.ItemConfigs.Bow)
+		local BlunderbussDerect = require(game.ReplicatedStorage.ItemConfigs.Blunderbuss)
+		local CrossbowDerect = require(game.ReplicatedStorage.ItemConfigs.Crossbow)
+		local USP9Derect = require(game.ReplicatedStorage.ItemConfigs.USP9)
+		local RPGDerect = require(game.ReplicatedStorage.ItemConfigs.RPG)
+		local M4A1Derect = require(game.ReplicatedStorage.ItemConfigs.M4A1)
+		local PipePistolDerect = require(game.ReplicatedStorage.ItemConfigs.PipePistol)
+		local PipeSMGDerect = require(game.ReplicatedStorage.ItemConfigs.PipeSMG)
+		function NoRecoilOff()
+			BowDerect.HipRecoil = {
+				rotMag = 0.05,
+				rotSpeed = 3,
+				push = 0.5,
+				returnTime = 0.05,
+				lerp = 0.9,
+				returnLerp = 0.25,
+				cameraY = 0.03,
+				cameraX = 0.05,
+				cameraXShake = 0.5
+			}
+			BowDerect.AimRecoil = {
+				rotMag = 0.2,
+				rotSpeed = 3,
+				push = 0.5,
+				returnTime = 0.05,
+				lerp = 0.9,
+				returnLerp = 0.25,
+				cameraY = 0.03,
+				cameraX = 0.05,
+				cameraXShake = 0.5
+			}
+			BlunderbussDerect.HipRecoil = {
+				rotMag = 0.05,
+				rotSpeed = 3,
+				push = 0.5,
+				returnTime = 0.05,
+				lerp = 0.9,
+				returnLerp = 0.25,
+				cameraY = 0.01,
+				cameraX = 0.05,
+				cameraXShake = 0.5
+			}
+			BlunderbussDerect.AimRecoil = {
+				rotMag = 0.2,
+				rotSpeed = 3,
+				push = 0.5,
+				returnTime = 0.05,
+				lerp = 0.9,
+				returnLerp = 0.25,
+				cameraY = 0.01,
+				cameraX = 0.05,
+				cameraXShake = 0.5
+			}
+			CrossbowDerect.HipRecoil = {
+				rotMag = 0.05,
+				rotSpeed = 3,
+				push = 0.5,
+				returnTime = 0.05,
+				lerp = 0.9,
+				returnLerp = 0.25,
+				cameraY = 0.03,
+				cameraX = 0.05,
+				cameraXShake = 0.5
+			}
+			CrossbowDerect.AimRecoil = {
+				rotMag = 0.2,
+				rotSpeed = 3,
+				push = 0.5,
+				returnTime = 0.05,
+				lerp = 0.9,
+				returnLerp = 0.25,
+				cameraY = 0.03,
+				cameraX = 0.05,
+				cameraXShake = 0.5
+			}
+			USP9Derect.HipRecoil = {
+				rotMag = 0.05,
+				rotSpeed = 3,
+				push = 0.5,
+				returnTime = 0.05,
+				lerp = 0.9,
+				returnLerp = 0.25,
+				cameraY = 0.01,
+				cameraX = 0.05,
+				cameraXShake = 0.5
+			}
+			USP9Derect.AimRecoil = {
+				rotMag = 0.2,
+				rotSpeed = 3,
+				push = 0.5,
+				returnTime = 0.05,
+				lerp = 0.9,
+				returnLerp = 0.25,
+				cameraY = 0.01,
+				cameraX = 0.05,
+				cameraXShake = 0.5
+			}
+			RPGDerect.HipRecoil = {
+				rotMag = 0.05,
+				rotSpeed = 3,
+				push = 0.5,
+				returnTime = 0.05,
+				lerp = 0.9,
+				returnLerp = 0.25,
+				cameraY = 0.01,
+				cameraX = 0.05,
+				cameraXShake = 0.5
+			}
+			RPGDerect.AimRecoil = {
+				rotMag = 0.2,
+				rotSpeed = 3,
+				push = 0.5,
+				returnTime = 0.05,
+				lerp = 0.9,
+				returnLerp = 0.25,
+				cameraY = 0.01,
+				cameraX = 0.05,
+				cameraXShake = 0.5
+			}
+			M4A1Derect.HipRecoil = {
+				rotMag = 0.05,
+				rotSpeed = 3,
+				push = 0.5,
+				returnTime = 0.05,
+				lerp = 0.9,
+				returnLerp = 0.25,
+				cameraY = 0.03,
+				cameraX = 0.05,
+				cameraXShake = 0.5
+			}
+			M4A1Derect.AimRecoil = {
+				rotMag = 0.1,
+				rotSpeed = 7,
+				push = 0.5,
+				returnTime = 0.05,
+				lerp = 0.9,
+				returnLerp = 0.25,
+				cameraY = 0.02,
+				cameraX = 0.03,
+				cameraXShake = 0.5
+			}
+			PipePistolDerect.HipRecoil = {
+				rotMag = 0.05,
+				rotSpeed = 3,
+				push = 0.5,
+				returnTime = 0.05,
+				lerp = 0.9,
+				returnLerp = 0.25,
+				cameraY = 0.01,
+				cameraX = 0.05,
+				cameraXShake = 0.5
+			}
+			PipePistolDerect.AimRecoil = {
+				rotMag = 0.2,
+				rotSpeed = 3,
+				push = 0.5,
+				returnTime = 0.05,
+				lerp = 0.9,
+				returnLerp = 0.25,
+				cameraY = 0.01,
+				cameraX = 0.05,
+				cameraXShake = 0.5
+			}
+			PipeSMGDerect.HipRecoil = {
+				rotMag = 0.05,
+				rotSpeed = 3,
+				push = 0.3,
+				returnTime = 0.05,
+				lerp = 0.9,
+				returnLerp = 0.25,
+				cameraY = 0.03,
+				cameraX = 0.05,
+				cameraXShake = 0.5
+			}
+			PipeSMGDerect.AimRecoil = {
+				rotMag = 0.2,
+				rotSpeed = 3,
+				push = 0.3,
+				returnTime = 0.05,
+				lerp = 0.9,
+				returnLerp = 0.25,
+				cameraY = 0.03,
+				cameraX = 0.05,
+				cameraXShake = 0.5
+			}
+		end
+
+		function NoRecoilOn()
+			BowDerect.HipRecoil = {
+				rotMag = 0,
+				rotSpeed = 0,
+				push = 0,
+				returnTime = 0,
+				lerp = 0,
+				returnLerp = 0,
+				cameraY = 0,
+				cameraX = 0,
+				cameraXShake = 0
+			}
+			BowDerect.AimRecoil = {
+				rotMag = 0,
+				rotSpeed = 0,
+				push = 0,
+				returnTime = 0,
+				lerp = 0,
+				returnLerp = 0,
+				cameraY = 0,
+				cameraX = 0,
+				cameraXShake = 0
+			}
+			BlunderbussDerect.HipRecoil = {
+				rotMag = 0,
+				rotSpeed = 0,
+				push = 0,
+				returnTime = 0,
+				lerp = 0,
+				returnLerp = 0,
+				cameraY = 0,
+				cameraX = 0,
+				cameraXShake = 0
+			}
+			BlunderbussDerect.AimRecoil = {
+				rotMag = 0,
+				rotSpeed = 0,
+				push = 0,
+				returnTime = 0,
+				lerp = 0,
+				returnLerp = 0,
+				cameraY = 0,
+				cameraX = 0,
+				cameraXShake = 0
+			}
+			CrossbowDerect.HipRecoil = {
+				rotMag = 0,
+				rotSpeed = 0,
+				push = 0,
+				returnTime = 0,
+				lerp = 0,
+				returnLerp = 0,
+				cameraY = 0,
+				cameraX = 0,
+				cameraXShake = 0
+			}
+			CrossbowDerect.AimRecoil = {
+				rotMag = 0,
+				rotSpeed = 0,
+				push = 0,
+				returnTime = 0,
+				lerp = 0,
+				returnLerp = 0,
+				cameraY = 0,
+				cameraX = 0,
+				cameraXShake = 0
+			}
+			USP9Derect.HipRecoil = {
+				rotMag = 0,
+				rotSpeed = 0,
+				push = 0,
+				returnTime = 0,
+				lerp = 0,
+				returnLerp = 0,
+				cameraY = 0,
+				cameraX = 0,
+				cameraXShake = 0
+			}
+			USP9Derect.AimRecoil = {
+				rotMag = 0,
+				rotSpeed = 0,
+				push = 0,
+				returnTime = 0,
+				lerp = 0,
+				returnLerp = 0,
+				cameraY = 0,
+				cameraX = 0,
+				cameraXShake = 0
+			}
+			RPGDerect.HipRecoil = {
+				rotMag = 0,
+				rotSpeed = 0,
+				push = 0,
+				returnTime = 0,
+				lerp = 0,
+				returnLerp = 0,
+				cameraY = 0,
+				cameraX = 0,
+				cameraXShake = 0
+			}
+			RPGDerect.AimRecoil = {
+				rotMag = 0,
+				rotSpeed = 0,
+				push = 0,
+				returnTime = 0,
+				lerp = 0,
+				returnLerp = 0,
+				cameraY = 0,
+				cameraX = 0,
+				cameraXShake = 0
+			}
+			M4A1Derect.HipRecoil = {
+				rotMag = 0,
+				rotSpeed = 0,
+				push = 0,
+				returnTime = 0,
+				lerp = 0,
+				returnLerp = 0,
+				cameraY = 0,
+				cameraX = 0,
+				cameraXShake = 0
+			}
+			M4A1Derect.AimRecoil = {
+				rotMag = 0,
+				rotSpeed = 0,
+				push = 0,
+				returnTime = 0,
+				lerp = 0,
+				returnLerp = 0,
+				cameraY = 0,
+				cameraX = 0,
+				cameraXShake = 0
+			}
+			PipePistolDerect.HipRecoil = {
+				rotMag = 0,
+				rotSpeed = 0,
+				push = 0,
+				returnTime = 0,
+				lerp = 0,
+				returnLerp = 0,
+				cameraY = 0,
+				cameraX = 0,
+				cameraXShake = 0
+			}
+			PipePistolDerect.AimRecoil = {
+				rotMag = 0,
+				rotSpeed = 0,
+				push = 0,
+				returnTime = 0,
+				lerp = 0,
+				returnLerp = 0,
+				cameraY = 0,
+				cameraX = 0,
+				cameraXShake = 0
+			}
+			PipeSMGDerect.HipRecoil = {
+				rotMag = 0,
+				rotSpeed = 0,
+				push = 0,
+				returnTime = 0,
+				lerp = 0,
+				returnLerp = 0,
+				cameraY = 0,
+				cameraX = 0,
+				cameraXShake = 0
+			}
+			PipeSMGDerect.AimRecoil = {
+				rotMag = 0,
+				rotSpeed = 0,
+				push = 0,
+				returnTime = 0,
+				lerp = 0,
+				returnLerp = 0,
+				cameraY = 0,
+				cameraX = 0,
+				cameraXShake = 0
+			}
+		end
+
+		function NoSpreedOff()
+			BowDerect.Accuracy = 3000
+			BlunderbussDerect.Accuracy = 1200
+			CrossbowDerect.Accuracy = 5000
+			USP9Derect.Accuracy = 5000
+			RPGDerect.Accuracy = 7000
+			M4A1Derect.Accuracy = 7000
+			PipePistolDerect.Accuracy = 4000
+			PipeSMGDerect.Accuracy = 5000
+		end
+
+		function NoSpreedOn()
+			BowDerect.Accuracy = 999999
+			BlunderbussDerect.Accuracy = 999999
+			CrossbowDerect.Accuracy = 999999
+			USP9Derect.Accuracy = 999999
+			RPGDerect.Accuracy = 999999
+			M4A1Derect.Accuracy = 999999
+			PipePistolDerect.Accuracy = 999999
+			PipeSMGDerect.Accuracy = 999999
+		end
+
+		GunModsSector:AddToggle('NoRecoilTpggle', { Text = 'NoRecoil', Default = false, Tooltip = nil, })
+		Toggles.NoRecoilTpggle:OnChanged(function(NRT)
+			if NRT == true then
+				NoRecoilOn()
+			elseif NRT == false then
+				NoRecoilOff()
+			end
+		end)
+		GunModsSector:AddToggle('NoSpreedToggle', { Text = 'NoSpreed', Default = false, Tooltip = nil, })
+		Toggles.NoSpreedToggle:OnChanged(function(NST)
+			if NST == true then
+				NoSpreedOn()
+			elseif NST == false then
+				NoSpreedOff()
+			end
+		end)
+
+		local ExploitsSector = CombatTab:AddRightGroupbox('Exploits')
+
+		local uip = game:GetService("UserInputService")
+		local ScreenGui = Instance.new("ScreenGui")
+		local Timer = Instance.new("TextLabel")
+		ScreenGui.Parent = game.CoreGui
+		Timer.Name = "Timer"
+		Timer.Parent = ScreenGui
+		Timer.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		Timer.Position = UDim2.new(0.750343859, 0, 0.067238912, 0)
+		Timer.Size = UDim2.new(0, 200, 0, 50)
+		Timer.Font = Enum.Font.SourceSans
+		Timer.TextColor3 = Color3.fromRGB(0, 0, 0)
+		Timer.TextSize = 14.000
+		Timer.Visible = false
+		local part = nil
+		local oldpos = nil
+		local fpress = false
+		local count = 0
+
+		ExploitsSector:AddLabel('Noclip'):AddKeyPicker('Noclip_Toggle', {
 			Default = 'V',
-			Text = 'Toggle Noclip',
-			Tooltip = 'Noclip!',
+			Text = 'Noclip',
+			Tooltip = nil,
 			NoUI = false,
 		})
 
@@ -488,27 +659,294 @@ local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/2Ridd
 			end
 		end)
 
-		worldset:AddLabel('Free Cam'):AddKeyPicker('Free_Cam', {
-			Default = 'B',
-			Text = 'Free Cam',
-			Tooltip = 'Allows you to go into a free cam mode.',
+		ExploitsSector:AddLabel('Up Peek'):AddKeyPicker('KeyBind2', {
+			Default = 'G',
+			SyncToggleState = false,
+			Mode = 'Hold',
+			Text = 'Up Peek',
 			NoUI = false,
 		})
 
-		Options.Free_Cam:OnClick(function()
-			ToggleFreecam();
+		task.spawn(function()
+			while true do
+				wait(0.1)
+				local state = Options.KeyBind2:GetState()
+				if state == false then
+					if part ~= nil then
+						part:Remove()
+						part = nil
+						game:GetService("Workspace").Ignore.LocalCharacter.Middle.Anchored = false
+						game:GetService("Workspace").Ignore.LocalCharacter.Middle.CFrame = oldpos
+						fpress = false
+						Timer.Text = "0"
+						Timer.Visible = false
+					end
+				else
+					if fpress == false then
+						oldpos = game:GetService("Workspace").Ignore.LocalCharacter.Middle.CFrame
+
+						part = Instance.new("Part", workspace)
+						part.Anchored = true
+						part.Transparency = 1
+
+						game:GetService("Workspace").Ignore.LocalCharacter.Middle.CFrame = game:GetService("Workspace").Ignore
+						.LocalCharacter.Middle.CFrame * CFrame.new(-4, 0, 0)
+						game:GetService("Workspace").Ignore.LocalCharacter.Middle.Anchored = true
+						part.CFrame = game:GetService("Workspace").Ignore.LocalCharacter.Bottom.CFrame * CFrame.new(2, 0, 0)
+
+						fpress = true
+						Timer.Visible = true
+						count = 0
+					end
+					count = count + 0.1
+					Timer.Text = tostring(count)
+					if count > 1 then
+						Timer.BackgroundColor3 = Color3.new(1, 0, 0.0156863)
+					else
+						Timer.BackgroundColor3 = Color3.new(0.101961, 1, 0)
+					end
+				end
+
+				if Library.Unloaded then break end
+			end
 		end)
 
-		esp:AddToggle('ESPT', {
-			Text = 'Esp Toggle',
-			Default = false,
-			Tooltip = 'Off/On Esp',
+		local VisualsTab = Window:AddTab('>Visuals')
+		local EspSector = VisualsTab:AddLeftGroupbox('Esp')
+
+		EspSector:AddButton('Chams', function()
+			if true then
+				while true do
+					wait(1)
+					for i, a in ipairs(workspace:GetChildren()) do
+						if a:FindFirstChild("HumanoidRootPart") then
+							if not a:FindFirstChild("Chamse") then
+								if a ~= game:GetService("Workspace").Ignore.FPSArms then
+									local b = Instance.new("Highlight", a)
+									b.Adornee = a
+									b.Name = "Chamse"
+									b.FillColor = Color3.fromRGB(128, 187, 219)
+									b.FillTransparency = 0.6
+									b.OutlineColor = Color3.fromRGB(13, 105, 172)
+								end
+							end
+						end
+					end
+				end
+			end
+		end)
+
+		local WorldSector = VisualsTab:AddLeftGroupbox('World')
+
+		local Socolo = Instance.new("Sky", game:GetService("Lighting"))
+		Socolo.Name = "SCDSCSD"
+
+		WorldSector:AddDropdown('SkyC',
+			{
+				Values = { 'Default', 'Sponge Bob', 'Among Us', 'Redshift', 'Aesthetic Night', 'Neptune' },
+				Default = 1,
+				Multi = false,
+				Text = 'Custom Skybox',
+				Tooltip = nil,
+			})
+		Options.SkyC:OnChanged(function(HOMO)
+			if HOMO == "Default" then
+				Socolo.SkyboxBk = "rbxasset://textures/sky/sky512_bk.tex"
+				Socolo.SkyboxDn = "rbxasset://textures/sky/sky512_dn.tex"
+				Socolo.SkyboxFt = "rbxasset://textures/sky/sky512_ft.tex"
+				Socolo.SkyboxLf = "rbxasset://textures/sky/sky512_lf.tex"
+				Socolo.SkyboxRt = "rbxasset://textures/sky/sky512_rt.tex"
+				Socolo.SkyboxUp = "rbxasset://textures/sky/sky512_up.tex"
+			elseif HOMO == "Sponge Bob" then
+				Socolo.SkyboxBk = "http://www.roblox.com/asset/?id=7633178166"
+				Socolo.SkyboxDn = "http://www.roblox.com/asset/?id=7633178166"
+				Socolo.SkyboxFt = "http://www.roblox.com/asset/?id=7633178166"
+				Socolo.SkyboxLf = "http://www.roblox.com/asset/?id=7633178166"
+				Socolo.SkyboxRt = "http://www.roblox.com/asset/?id=7633178166"
+				Socolo.SkyboxUp = "http://www.roblox.com/asset/?id=7633178166"
+			elseif HOMO == "Among Us" then
+				Socolo.SkyboxBk = "rbxassetid://5752463190"
+				Socolo.SkyboxDn = "rbxassetid://5872485020"
+				Socolo.SkyboxFt = "rbxassetid://5752463190"
+				Socolo.SkyboxLf = "rbxassetid://5752463190"
+				Socolo.SkyboxRt = "rbxassetid://5752463190"
+				Socolo.SkyboxUp = "rbxassetid://5752463190"
+			elseif HOMO == "Redshift" then
+				Socolo.SkyboxBk = "rbxassetid://401664839"
+				Socolo.SkyboxDn = "rbxassetid://401664862"
+				Socolo.SkyboxFt = "rbxassetid://401664960"
+				Socolo.SkyboxLf = "rbxassetid://401664881"
+				Socolo.SkyboxRt = "rbxassetid://401664901"
+				Socolo.SkyboxUp = "rbxassetid://401664936"
+			elseif HOMO == "Aesthetic Night" then
+				Socolo.SkyboxBk = "rbxassetid://1045964490"
+				Socolo.SkyboxDn = "rbxassetid://1045964368"
+				Socolo.SkyboxFt = "rbxassetid://1045964655"
+				Socolo.SkyboxLf = "rbxassetid://1045964655"
+				Socolo.SkyboxRt = "rbxassetid://1045964655"
+				Socolo.SkyboxUp = "rbxassetid://1045962969"
+			elseif HOMO == "Neptune" then
+				Socolo.SkyboxBk = "rbxassetid://218955819"
+				Socolo.SkyboxDn = "rbxassetid://218953419"
+				Socolo.SkyboxFt = "rbxassetid://218954524"
+				Socolo.SkyboxLf = "rbxassetid://218958493"
+				Socolo.SkyboxRt = "rbxassetid://218957134"
+				Socolo.SkyboxUp = "rbxassetid://218950090"
+			end
+		end)
+		WorldSector:AddToggle('GrassT', { Text = 'Grass', Default = true, Tooltip = nil, })
+		Toggles.GrassT:OnChanged(function(GT)
+			setscriptable(workspace.Terrain, "Decoration", true)
+			workspace.Terrain.Decoration = GT
+		end)
+		WorldSector:AddToggle('G3DClo', { Text = '3D Clouds', Default = true, Tooltip = nil, })
+		Toggles.G3DClo:OnChanged(function(DSTT)
+			game:GetService("Workspace").Terrain.Clouds.Enabled = DSTT
+		end)
+
+		local CrossHairSector = VisualsTab:AddRightGroupbox('Cross Hair')
+
+		getgenv().CrosshairSettings = {
+			Color = Color3.fromRGB(255, 255, 255),
+			Opacity = 1,
+			Length = 10,
+			Thickness = 1,
+			Offset = 3,
+			Dot = false,
+			FollowCursor = false,
+			HideMouseIcon = false,
+			HideGameCrosshair = false,
+			VisibleHS = false
+		}
+		loadstring(game:HttpGet("https://github.com/ZXCSt1vaha/Main/raw/main/CrossHairLOL"))()
+		CrossHairSector:AddToggle('VisibleCH', { Text = 'Visible', Default = false, Tooltip = nil, })
+		Toggles.VisibleCH:OnChanged(function(chtv)
+			getgenv().CrosshairSettings.VisibleHS = chtv
+		end)
+		CrossHairSector:AddLabel('Color'):AddColorPicker('CHJColor', { Default = Color3.new(0, 1, 0), Title = 'Color', })
+		Options.CHJColor:OnChanged(function(chc)
+			getgenv().CrosshairSettings.Color = chc
+		end)
+		CrossHairSector:AddToggle('FollowCursorT', { Text = 'Follow Cursor', Default = false, Tooltip = nil, })
+		Toggles.FollowCursorT:OnChanged(function(fcch)
+			getgenv().CrosshairSettings.FollowCursor = fcch
+		end)
+		CrossHairSector:AddToggle('HideMouseIconT', { Text = 'Hide Mouse Icon', Default = false, Tooltip = nil, })
+		Toggles.HideMouseIconT:OnChanged(function(hmich)
+			getgenv().CrosshairSettings.HideMouseIcon = hmich
+		end)
+		CrossHairSector:AddSlider('LengthS', { Text = 'Length', Default = 10, Min = 0, Max = 55, Rounding = 1, Compact = false, })
+		Options.LengthS:OnChanged(function(lch)
+			getgenv().CrosshairSettings.Length = lch
+		end)
+		CrossHairSector:AddSlider('ThicknessS', {
+			Text = 'Thickness',
+			Default = 1,
+			Min = 0,
+			Max = 5,
+			Rounding = 1,
+			Compact = false,
 		})
-		Toggles.ESPT:OnChanged(function(f)
-			_Player.SetEsp(f);
+		Options.ThicknessS:OnChanged(function(tck)
+			getgenv().CrosshairSettings.Thickness = tck
+		end)
+
+		local MiscSector = VisualsTab:AddRightGroupbox('Misc')
+
+		MiscSector:AddToggle('ST', { Text = 'Server Status', Default = true, Tooltip = nil, })
+		Toggles.ST:OnChanged(function(ServerStatuss)
+			game:GetService("Players").LocalPlayer.PlayerGui.UI.ServerStatus.Visible = ServerStatuss
+		end)
+		MiscSector:AddToggle('SI', { Text = 'Server Info', Default = true, Tooltip = nil, })
+		Toggles.SI:OnChanged(function(ServerInfoS)
+			game:GetService("Players").LocalPlayer.PlayerGui.UI.ServerInfo.Visible = ServerInfoS
+		end)
+
+		local MiscTab = Window:AddTab('>Misc')
+
+		local PlayerSector = MiscTab:AddLeftGroupbox('Player')
+
+		PlayerSector:AddToggle('GravityTT', {Text = 'Gravity',Default = false, Tooltip = nil,}) Toggles.GravityTT:OnChanged(function(grt)
+			if grt == true then
+				game.Workspace.Gravity = 61.7
+			elseif grt == false then
+				game.Workspace.Gravity = 75
+			end
+		end)    
+
+		local XRaySector = MiscTab:AddLeftGroupbox('X-Ray')
+
+		local WallHackOn = false
+		local XRTransparency = 1
+
+		XRaySector:AddLabel('X-Ray'):AddKeyPicker('XRKB', { Default = 'T',  SyncToggleState = false, Mode = 'Toggle', Text = 'X-Ray', NoUI = false,}) Options.XRKB:OnClick(function()
+			if WallHackOn == false then
+				WallHackOn = true
+				for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
+					if v:FindFirstChild("Hitbox") then
+						v.Hitbox.Transparency = XRTransparency
+					end
+				end
+			else
+				WallHackOn = false
+				for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
+					if v:FindFirstChild("Hitbox") then
+						v.Hitbox.Transparency = 0
+					end
+				end
+			end
+		end)
+		XRaySector:AddSlider('XRTS', {Text = 'X-Ray Transparency',Default = 0.9,Min = 0,Max = 1,Rounding = 1,Compact = false,})Options.XRTS:OnChanged(function(TT)
+			XRTransparency = TT
 		end)
 
 
-		ThemeManager.Library = Library
-		ThemeManager:CreateThemeManager(uitheme)
-		
+		local Tabs = {
+			['UI Settings'] = Window:AddTab('>Info'),
+		}
+
+		ThemeManager:SetLibrary(Library)
+		SaveManager:SetLibrary(Library)
+		SaveManager:IgnoreThemeSettings()
+		SaveManager:SetIgnoreIndexes({ 'MenuKeybind' })
+		ThemeManager:SetFolder('NeverDieds/TS')
+		SaveManager:SetFolder('NeverDieds/TS')
+		SaveManager:BuildConfigSection(Tabs['UI Settings'])
+		ThemeManager:ApplyToTab(Tabs['UI Settings'])
+
+		local InfoForCheat = Tabs['UI Settings']:AddRightGroupbox('Info')
+
+		InfoForCheat:AddLabel('Credits: <font color=\"#3250FE\">Blazer#6666</font> & <font color=\"#3250FE\">4Peek#8251</font>',true)
+
+		InfoForCheat:AddButton('UnHook', function()
+			Library:Unload()
+		end)
+
+		InfoForCheat:AddLabel('Menu bind'):AddKeyPicker('MenuKeybind', { Default = 'Home', NoUI = true, Text = 'Menu keybind' })
+
+		Library.ToggleKeybind = Options.MenuKeybind
+
+
+		InfoForCheat:AddToggle('WMTT', {
+			Text = 'Watermark',
+			Default = true,
+			Tooltip = 'Off/On Watermark',
+		})
+		Toggles.WMTT:OnChanged(function(wttt)
+			Library:SetWatermarkVisibility(wttt)
+		end)
+
+		InfoForCheat:AddToggle('KBTT', {
+			Text = 'Keybind',
+			Default = true,
+			Tooltip = 'Off/On Keybind',
+		})
+		Toggles.KBTT:OnChanged(function(KBTTTT)
+			Library.KeybindFrame.Visible = KBTTTT
+		end)
+
+		Library.KeybindFrame.Visible = true;
+
+		Library:OnUnload(function()
+			Library.Unloaded = true
+		end)
